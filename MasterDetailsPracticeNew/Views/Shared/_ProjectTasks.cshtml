@@ -1,0 +1,87 @@
+﻿@model MasterDetailViewModel
+
+@{
+    if (Model.DataEntryTarget == DataEntryTargets.ProjectTasks)
+    {
+
+        if (Model.SelectedProjectTask != null)
+        {
+            if (Model.DataDisplayMode == DataDisplayModes.Read)
+            {
+                await Html.RenderPartialAsync("_ShowProjectTask", Model.SelectedProjectTask);
+            }
+            if (Model.DataDisplayMode == DataDisplayModes.Update)
+            {
+                await Html.RenderPartialAsync("_UpdateProjectTask", Model.SelectedProjectTask);
+            }
+        }
+        if (Model.DataDisplayMode == DataDisplayModes.Insert)
+        {
+            await Html.RenderPartialAsync("_InsertProjectTask", new ProjectTask() 
+            { ProjectID = Model.SelectedProject.ProjectID });
+        }
+
+        if (Model.SelectedProject != null)
+        {
+                <h6> @Model.SelectedProject.Name</h6>
+
+                <form method="post">
+
+                    <input type="submit"
+                       value="Add Task"
+                       asp-controller="ProjectTasks"
+                       asp-action="InsertEntry" 
+                       asp-route-Projectid="@Model.SelectedProject.ProjectID"/>
+
+                    <br /><br />
+
+                          <table  border="1" class="table" cellpadding="10"  style="background-color:rgb(240, 240, 240)">
+                              <tr>
+                                  <th style="display:none" style="width:10%">Project ID</th>
+                                  <th style="display:none">Task ID</th>
+                                    <th style="width:20%">Project Name</th>
+                                  <th style="width:35%">Task Name</th>
+                                  <th style="width:25%">Duration</th>
+                                  <th style="width:10%" colspan="2">Actions</th>
+                              </tr>
+
+                              @foreach (var item in Model.SelectedProject.Members)
+                          {
+                              if (Model.SelectedProjectTask != null)
+                              {
+                                  if (item.ProjectTaskID == Model.SelectedProjectTask.ProjectTaskID)
+                                  {
+                                          @:<tr class="SelectedRow">
+                                    }
+                                    else
+                                    {
+                                            @:<tr>
+                                    }
+                                }
+                                else
+                                {
+                                        @:<tr>
+                                }
+                                      <td style="display:none">@item.ProjectID</td>
+                                      <td style="display:none">@item.ProjectTaskID</td>
+                                      <td> @Model.SelectedProject.Name</td>
+
+                                      <td>@item.Name</td>
+                                      <td>@item.Duration</td>
+                                      <td>
+                               <input type="submit"
+                           value="Manage Task"
+                           asp-controller="ProjectTasks"
+                           asp-action="Select"
+                           asp-route-Projectid="@item.ProjectID"
+                           asp-route-memberid="@item.ProjectTaskID"/>
+                                      </td>
+                                  @:</tr>
+                          }
+                          </table>
+                </form>
+        }
+        
+
+    }
+}

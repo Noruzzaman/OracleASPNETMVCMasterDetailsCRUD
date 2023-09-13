@@ -1,0 +1,93 @@
+﻿@model MasterDetailViewModel
+
+
+<h4> Project List</h4>
+
+<br />
+
+<div style="background-color:aliceblue">
+@{
+    if (Model.DataEntryTarget == DataEntryTargets.Projects)
+    {
+        if (Model.SelectedProject != null)
+        {
+            if (Model.DataDisplayMode == 
+DataDisplayModes.Read)
+            {
+                await Html.RenderPartialAsync
+("_ShowProject", Model.SelectedProject);
+            }
+            if (Model.DataDisplayMode == 
+DataDisplayModes.Update)
+            {
+                await Html.RenderPartialAsync
+("_UpdateProject", Model.SelectedProject);
+            }
+        }
+        if (Model.DataDisplayMode == DataDisplayModes.Insert)
+        {
+            await Html.RenderPartialAsync
+("_InsertProject", new Project());
+        }
+    }
+}
+
+</div>
+<br />
+
+<form method="post">
+  
+    <input type="submit"
+           value="Add Project"
+           asp-controller="Projects"
+           asp-action="InsertEntry" />
+
+    <br /><br />
+
+    <table border="1" cellpadding="10" class="table"  style="background-color:rgb(240, 240, 240)">
+        <tr>
+            <th style="width:15%">Project ID</th>
+            <th  style="width:25%">Project Name</th>
+            <th  style="width:50%">Description</th>
+            <th  style="width:10%" colspan="2">Actions</th>
+        </tr>
+
+        @foreach (var item in Model.Projects)
+        {
+            if (Model.SelectedProject != null)
+            {
+                if (item.ProjectID == 
+Model.SelectedProject.ProjectID)
+                {
+                    @:<tr class="SelectedRow">
+                }
+                else
+                {
+                    @:<tr>
+                }
+                }
+            else
+            {
+                @:<tr>
+            }
+                <td>@item.ProjectID</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>
+                    <input type="submit"
+                           value="Manage Project"
+                           asp-controller="Projects"
+                           asp-action="Select"
+                           asp-route-Projectid="@item.ProjectID" />
+                </td>
+                <td>
+                    <input type="submit"
+                           value="Sow Task"
+                           asp-controller="ProjectTasks"
+                           asp-action="List"
+                           asp-route-Projectid="@item.ProjectID" />
+                </td>
+            @:</tr>
+        }
+    </table>
+</form>

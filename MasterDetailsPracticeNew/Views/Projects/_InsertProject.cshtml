@@ -1,0 +1,35 @@
+﻿@model Project
+
+<h6>New Project</h6>
+
+<form method="post">
+    <table cellpadding="10">
+        <tr>
+            <td>Name :</td>
+            <td>
+                <input type="text"
+                       asp-for="Name" />
+            </td>
+        </tr>
+        <tr>
+            <td>Description :</td>
+            <td>
+                <input type="text"
+                       asp-for="Description" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit"
+                       value="Save"
+                       asp-controller="Projects"
+                       asp-action="InsertSave" />
+
+                <input type="submit"
+                       value="Cancel"
+                       asp-controller="Projects"
+                       asp-action="CancelEntry" />
+            </td>
+        </tr>
+    </table>
+</form>

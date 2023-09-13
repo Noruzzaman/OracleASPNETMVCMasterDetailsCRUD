@@ -1,0 +1,41 @@
+﻿@model Project
+
+
+<h6>Edit Project : @Model.Name</h6>
+
+<form method="post">
+    <table cellpadding="10">
+        <tr>
+            <td>Project ID :</td>
+            <td>@Model.ProjectID</td>
+        </tr>
+        <tr>
+            <td>Project Name :</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Description :</td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit"
+                       value="Edit"
+                       asp-controller="Projects"
+                       asp-action="UpdateEntry"
+                       asp-route-Projectid="@Model.ProjectID" />
+
+                <input type="submit"
+                       value="Delete"
+                       asp-controller="Projects"
+                       asp-action="Delete"
+                       asp-route-Projectid="@Model.ProjectID" />
+
+                <input type="submit"
+                       value="Cancel"
+                       asp-controller="Projects"
+                       asp-action="CancelSelection" />
+            </td>
+        </tr>
+    </table>
+</form>

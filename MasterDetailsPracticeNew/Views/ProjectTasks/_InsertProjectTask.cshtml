@@ -1,0 +1,36 @@
+﻿@model ProjectTask
+<div style="background-color:aliceblue">
+    <h6>Add New  Task</h6>
+
+    <form method="post">
+
+        <input type="hidden" asp-for="ProjectID" />
+
+        <table cellpadding="10">
+            <tr>
+                <td>Task Name :</td>
+                <td><input type="text" asp-for="Name" /></td>
+            </tr>
+            <tr>
+                <td>Duration :</td>
+                <td><input type="text" asp-for="Duration" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit"
+                           value="Save"
+                           asp-controller="ProjectTasks"
+                           asp-action="InsertSave"
+                           asp-route-Projectid="@Model.ProjectID" />
+
+                    <input type="submit"
+                           value="Cancel"
+                           asp-controller="ProjectTasks"
+                           asp-action="CancelEntry"
+                           asp-route-Projectid="@Model.ProjectID" />
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>

@@ -1,0 +1,48 @@
+﻿@model ProjectTask
+<div style="background-color:aliceblue">
+    <h6>Edit Task : @Model.Name</h6>
+
+    <form method="post">
+        <table cellpadding="10">
+            <tr>
+                <td>Project ID :</td>
+                <td>
+                    <input type="text" asp-for="ProjectID" readonly />
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Task ID :</td>
+                <td>
+                    <input type="text" asp-for="ProjectTaskID" readonly />
+                </td>
+            </tr>
+            <tr>
+                <td>Task Name :</td>
+                <td><input type="text" asp-for="Name" /></td>
+            </tr>
+            <tr>
+                <td>Duration :</td>
+                <td><input type="text" asp-for="Duration" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit"
+                           value="Save"
+                           asp-controller="ProjectTasks"
+                           asp-action="UpdateSave"
+                           asp-route-Projectid="@Model.ProjectID"
+                           asp-route-memberid="@Model.ProjectTaskID" />
+
+                    <input type="submit"
+                           value="Cancel"
+                           asp-controller="ProjectTasks"
+                           asp-action="CancelEntry"
+                           asp-route-Projectid="@Model.ProjectID"
+                           asp-route-memberid="@Model.ProjectTaskID" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
